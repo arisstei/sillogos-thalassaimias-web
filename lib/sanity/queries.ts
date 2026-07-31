@@ -58,11 +58,11 @@ const HAS_SLUG = "defined(slug.current)";
 // dedicated sections (/nea, /foreis, /nomothesia) ή από την custom αρχική
 // σελίδα -- δεν πρέπει να εμφανίζονται (ξανά) στο κύριο μενού.
 const LEGACY_UTILITY_SLUGS = [
-  "αρχικη", // custom αρχική σελίδα -> app/page.tsx, όχι αυτή
-  "νέα-εκδηλώσεις", // -> /nea
+  "archiki", // custom αρχική σελίδα -> app/page.tsx, όχι αυτή
+  "nea-ekdiloseis", // -> /nea
   "business-directory", // -> /foreis
-  "downloadspage", // -> /nomothesia
-  "σύλλογοι", // -> /foreis (λίστα φορέων)
+  "nomothesia", // -> /nomothesia (μετά το greeklish re-import πήρε αυτό το slug)
+  "syllogoi", // -> /foreis (λίστα φορέων)
 ];
 const NOT_LEGACY_UTILITY = LEGACY_UTILITY_SLUGS.map(
   (s) => `slug.current != "${s}"`
