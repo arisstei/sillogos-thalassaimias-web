@@ -18,7 +18,9 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings | 
 
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-400">
-            Επικοινωνία
+            <Link href="/epikoinonia" className="hover:text-white">
+              Επικοινωνία
+            </Link>
           </h3>
           <ul className="mt-3 space-y-2 text-sm">
             {siteSettings?.address ? <li className="text-stone-400">{siteSettings.address}</li> : null}
