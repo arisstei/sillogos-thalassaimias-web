@@ -159,6 +159,7 @@ export async function getAllPartnerOrganizations(): Promise<PartnerOrganization[
       fax,
       email,
       website,
+      social,
       notes
     }`
   );

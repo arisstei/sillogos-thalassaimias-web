@@ -61,6 +61,7 @@ export interface PartnerOrganization {
   fax?: string;
   email?: string;
   website?: string;
+  social?: { platform: "facebook" | "instagram" | "youtube" | "other"; url: string }[];
   notes?: string;
 }
 

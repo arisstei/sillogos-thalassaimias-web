@@ -2,6 +2,38 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import { urlForImage } from "@/lib/sanity/image";
 
+// Αν μια ολόκληρη παράγραφος είναι απλά ένα link YouTube (π.χ. επικολλημένο
+// σε δική του γραμμή, όπως γίνεται συνήθως όταν παίρνουμε κείμενο από
+// Facebook), το δείχνουμε ως ενσωματωμένο video player αντί για απλό link.
+const YOUTUBE_RE =
+  /^https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{6,})(?:[?&].*)?$/;
+
+function getYouTubeId(text: string): string | null {
+  const match = text.trim().match(YOUTUBE_RE);
+  return match ? match[1] : null;
+}
+
+function YouTubeEmbed({ videoId }: { videoId: string }) {
+  return (
+    <div className="relative my-6 aspect-video w-full overflow-hidden rounded-lg bg-stone-100">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="Βίντεο YouTube"
+        className="absolute inset-0 h-full w-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
+    </div>
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function blockPlainText(value: any): string {
+  if (!value?.children) return "";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return value.children.map((c: any) => c.text || "").join("");
+}
+
 const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
@@ -62,9 +94,11 @@ const components: PortableTextComponents = {
         {children}
       </blockquote>
     ),
-    normal: ({ children }) => (
-      <p className="my-4 leading-relaxed text-stone-700">{children}</p>
-    ),
+    normal: ({ children, value }) => {
+      const videoId = getYouTubeId(blockPlainText(value));
+      if (videoId) return <YouTubeEmbed videoId={videoId} />;
+      return <p className="my-4 leading-relaxed text-stone-700">{children}</p>;
+    },
   },
   list: {
     bullet: ({ children }) => (
