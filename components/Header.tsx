@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import type { Page, SiteSettings } from "@/lib/types";
 
@@ -31,11 +32,15 @@ export default function Header({
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200 bg-[color:var(--color-cream)]/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <Link
-          href="/"
-          className="font-serif text-lg font-semibold tracking-tight text-stone-900 sm:text-xl"
-        >
-          {siteTitle}
+        <Link href="/" className="flex shrink-0 items-center" aria-label={siteTitle}>
+          <Image
+            src="/logo.png"
+            alt={siteTitle}
+            width={250}
+            height={164}
+            priority
+            className="h-14 w-auto sm:h-16"
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">
