@@ -19,8 +19,17 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
+/* Το "&" του Playfair Display είναι πολύ διακοσμητικό/καλλιγραφικό για σοβαρό
+   ενημερωτικό site -- αντικαθιστούμε ΜΟΝΟ αυτόν τον χαρακτήρα με το πιο απλό
+   "&" ενός system serif (Georgia), κρατώντας το Playfair για όλα τα άλλα. */
+@font-face {
+  font-family: "PlayfairAmpFix";
+  src: local("Georgia"), local("Times New Roman");
+  unicode-range: U+0026;
+}
+
 .font-serif {
-  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+  font-family: "PlayfairAmpFix", var(--font-playfair), Georgia, "Times New Roman", serif;
 }
 
 .line-clamp-3 {
