@@ -33,15 +33,18 @@ export default function Header({
     <header className="sticky top-0 z-50 bg-white shadow-sm">
       {/* Πάνω γραμμή: λογότυπο + ονομασία, κεντραρισμένα */}
       <div className="relative mx-auto flex max-w-6xl items-center justify-center px-5 py-5 sm:px-8">
-        <Link href="/" className="flex shrink-0 items-center" aria-label={siteTitle}>
+        <Link href="/" className="flex shrink-0 items-center gap-3 sm:gap-4" aria-label={siteTitle}>
           <Image
             src="/logo.png"
             alt={siteTitle}
             width={250}
             height={164}
             priority
-            className="h-20 w-auto sm:h-24"
+            className="h-16 w-auto sm:h-20"
           />
+          <span className="max-w-[200px] text-left font-serif text-lg leading-tight font-bold text-stone-900 sm:max-w-[260px] sm:text-2xl">
+            {siteTitle}
+          </span>
         </Link>
 
         <button
