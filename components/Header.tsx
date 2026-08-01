@@ -30,8 +30,9 @@ export default function Header({
   const siteTitle = siteSettings?.title || "Σύλλογος Θαλασσαιμίας Ηρακλείου - Λασιθίου";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200 bg-[color:var(--color-cream)]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
+      {/* Πάνω γραμμή: λογότυπο + ονομασία, κεντραρισμένα */}
+      <div className="relative mx-auto flex max-w-6xl items-center justify-center px-5 py-5 sm:px-8">
         <Link href="/" className="flex shrink-0 items-center" aria-label={siteTitle}>
           <Image
             src="/logo.png"
@@ -39,28 +40,16 @@ export default function Header({
             width={250}
             height={164}
             priority
-            className="h-14 w-auto sm:h-16"
+            className="h-20 w-auto sm:h-24"
           />
         </Link>
-
-        <nav className="hidden items-center gap-7 lg:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-stone-600 transition-colors hover:text-[color:var(--color-accent)]"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
 
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Μενού πλοήγησης"
-          className="flex h-10 w-10 items-center justify-center rounded-md text-stone-700 lg:hidden"
+          className="absolute right-5 flex h-10 w-10 items-center justify-center rounded-md text-stone-700 sm:right-8 lg:hidden"
         >
           <span className="sr-only">Μενού</span>
           {open ? (
@@ -74,6 +63,21 @@ export default function Header({
           )}
         </button>
       </div>
+
+      {/* Κάτω γραμμή: οριζόντιο μενού σε πλήρες πλάτος */}
+      <nav className="hidden border-t border-b border-stone-200 bg-[color:var(--color-cream)] lg:block">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-1 px-5 py-3 sm:px-8">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium tracking-wide text-stone-700 transition-colors hover:text-[color:var(--color-accent)]"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
 
       {open ? (
         <nav className="border-t border-stone-200 bg-[color:var(--color-cream)] px-5 py-3 lg:hidden">
