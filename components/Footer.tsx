@@ -5,7 +5,7 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings | 
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-stone-200 bg-stone-900 text-stone-300">
+    <footer className="mt-24 border-t border-[color:var(--color-accent-dark)]/40 bg-[#2c2022] text-stone-300">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-3">
         <div>
           <h2 className="font-serif text-lg font-semibold text-white">

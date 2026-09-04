@@ -30,7 +30,7 @@ export default function Header({
   const siteTitle = siteSettings?.title || "Σύλλογος Θαλασσαιμίας Ηρακλείου - Λασιθίου";
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-white/95 shadow-[0_8px_30px_-18px_rgba(53,25,31,0.45)] backdrop-blur-md">
       {/* Πάνω γραμμή: λογότυπο + ονομασία, κεντραρισμένα */}
       <div className="relative mx-auto flex max-w-6xl items-center justify-center px-5 py-5 sm:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-3 sm:gap-4" aria-label={siteTitle}>

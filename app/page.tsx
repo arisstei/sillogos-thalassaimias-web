@@ -25,8 +25,10 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-stone-200 bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-20 text-center sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden border-b border-stone-200/80 bg-white">
+        <div className="pointer-events-none absolute -right-24 -top-32 size-80 rounded-full bg-[color:var(--color-accent)]/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-40 -left-24 size-96 rounded-full bg-amber-100/50 blur-3xl" />
+        <div className="relative mx-auto max-w-6xl px-5 py-24 text-center sm:px-8 sm:py-32">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--color-accent)]">
             Σύλλογος Ασθενών
           </p>
@@ -62,7 +64,7 @@ export default async function HomePage() {
 
       {/* About teaser */}
       {aboutPage ? (
-        <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+<section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
           <div className="grid items-center gap-10 md:grid-cols-2">
             {aboutImageUrl ? (
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-stone-100 md:order-2">
@@ -123,7 +125,7 @@ export default async function HomePage() {
         <div className="grid gap-6 sm:grid-cols-2">
           <Link
             href="/foreis"
-            className="group rounded-lg border border-stone-200 bg-white p-8 transition-shadow hover:shadow-md"
+            className="group rounded-2xl border border-stone-200/80 bg-white p-8 shadow-[0_8px_26px_-20px_rgba(61,31,36,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-accent)]/30 hover:shadow-[0_18px_38px_-20px_rgba(61,31,36,0.55)]"
           >
             <h3 className="font-serif text-xl font-semibold text-stone-900 group-hover:text-[color:var(--color-accent)]">
               Συνεργαζόμενοι Φορείς
@@ -134,7 +136,7 @@ export default async function HomePage() {
           </Link>
           <Link
             href="/nomothesia"
-            className="group rounded-lg border border-stone-200 bg-white p-8 transition-shadow hover:shadow-md"
+            className="group rounded-2xl border border-stone-200/80 bg-white p-8 shadow-[0_8px_26px_-20px_rgba(61,31,36,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-accent)]/30 hover:shadow-[0_18px_38px_-20px_rgba(61,31,36,0.55)]"
           >
             <h3 className="font-serif text-xl font-semibold text-stone-900 group-hover:text-[color:var(--color-accent)]">
               Νομοθεσία &amp; Έγγραφα

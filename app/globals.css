@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --color-cream: #faf7f2;
-  --color-accent: #a5293f;
-  --color-accent-dark: #7d1e30;
+  --color-cream: #f8f3ed;
+  --color-accent: #9b2940;
+  --color-accent-dark: #741d30;
+  --color-ink: #2a2020;
+  --color-muted: #716866;
 }
 
 @theme inline {

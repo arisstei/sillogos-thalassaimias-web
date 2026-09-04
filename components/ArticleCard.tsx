@@ -18,7 +18,7 @@ export default function ArticleCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/nea/${post.slug.current}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition-shadow hover:shadow-md"
+      className="group flex flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-[0_8px_24px_-18px_rgba(61,31,36,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-accent)]/30 hover:shadow-[0_18px_38px_-20px_rgba(61,31,36,0.55)]"
     >
       <div className="relative aspect-[3/2] w-full overflow-hidden bg-stone-100">
         {imageUrl ? (
