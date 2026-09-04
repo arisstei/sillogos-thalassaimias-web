@@ -22,9 +22,9 @@ export default function Header({
   const links: NavLink[] = [
     { href: "/", label: "Αρχική" },
     { href: "/nea", label: "Νέα" },
-    ...navPages.map((p) => ({ href: `/${p.slug.current}`, label: p.title })),
-    { href: "/foreis", label: "Φορείς" },
-    { href: "/nomothesia", label: "Νομοθεσία" },
+    ...navPages
+      .filter((p) => !["epikoinonia", "foreis", "nomothesia"].includes(p.slug.current))
+      .map((p) => ({ href: `/${p.slug.current}`, label: p.title })),
   ];
 
   const siteTitle = siteSettings?.title || "Σύλλογος Θαλασσαιμίας Ηρακλείου - Λασιθίου";
