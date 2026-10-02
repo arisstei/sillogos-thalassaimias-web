@@ -8,9 +8,37 @@ import { urlForImage } from "@/lib/sanity/image";
 const YOUTUBE_RE =
   /^https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{6,})(?:[?&].*)?$/;
 
+// Τα παλιά άρθρα WordPress περιέχουν shortcodes της μορφής [embed]URL[/embed].
+function unwrapEmbed(text: string): string {
+  const m = text.trim().match(/^\[embed\]\s*(.+?)\s*\[\/embed\]$/i);
+  return m ? m[1] : text.trim();
+}
+
 function getYouTubeId(text: string): string | null {
-  const match = text.trim().match(YOUTUBE_RE);
+  const match = unwrapEmbed(text).match(YOUTUBE_RE);
   return match ? match[1] : null;
+}
+
+const FACEBOOK_VIDEO_RE =
+  /^https?:\/\/(?:www\.|m\.|web\.)?facebook\.com\/(?:[^/\s]+\/videos\/|watch\/?\?v=|reel\/|share\/[vr]\/|video\.php\?v=)[^\s]+$/;
+
+function getFacebookVideoUrl(text: string): string | null {
+  const url = unwrapEmbed(text);
+  return FACEBOOK_VIDEO_RE.test(url) ? url : null;
+}
+
+function FacebookVideoEmbed({ url }: { url: string }) {
+  return (
+    <div className="relative my-6 aspect-video w-full overflow-hidden rounded-lg bg-stone-100">
+      <iframe
+        src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false`}
+        title="Βίντεο Facebook"
+        className="absolute inset-0 h-full w-full"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        allowFullScreen
+      />
+    </div>
+  );
 }
 
 function YouTubeEmbed({ videoId }: { videoId: string }) {
@@ -97,6 +125,8 @@ const components: PortableTextComponents = {
     normal: ({ children, value }) => {
       const videoId = getYouTubeId(blockPlainText(value));
       if (videoId) return <YouTubeEmbed videoId={videoId} />;
+      const fbUrl = getFacebookVideoUrl(blockPlainText(value));
+      if (fbUrl) return <FacebookVideoEmbed url={fbUrl} />;
       return <p className="my-4 leading-relaxed text-stone-700">{children}</p>;
     },
   },
