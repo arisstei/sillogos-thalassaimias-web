@@ -108,8 +108,10 @@ export default function IntroOverlay({ title }: { title: string }) {
       if (reduce) draw(0);
     };
 
-    const home = () => ({ x: w / 2, y: h * 0.36 });
-    const radius = () => Math.min(w * 0.17, h * 0.17, 120);
+    const narrow = () => w < 640;
+    const home = () => ({ x: w / 2, y: h * (narrow() ? 0.28 : 0.36) });
+    const radius = () =>
+      Math.min(w * (narrow() ? 0.24 : 0.17), h * (narrow() ? 0.15 : 0.17), 120);
 
     const drop = { x: 0, y: 0, vx: 0, vy: 0, ready: false };
     const pointer = { x: 0, y: 0, active: false };
@@ -263,7 +265,7 @@ export default function IntroOverlay({ title }: { title: string }) {
       pointer.active = true;
       if (reduce) return;
       const d = Math.hypot(e.clientX - lastEmit.x, e.clientY - lastEmit.y);
-      if (d > 28) {
+      if (e.pointerType !== "touch" && d > 28) {
         lastEmit = { x: e.clientX, y: e.clientY };
         particles.push({
           x: e.clientX,
@@ -307,10 +309,11 @@ export default function IntroOverlay({ title }: { title: string }) {
 
   return (
     <div
-      className={`intro-overlay fixed inset-0 z-[100] overflow-hidden transition-opacity duration-700 ${
+      className={`intro-overlay fixed inset-x-0 top-0 z-[100] overflow-x-hidden overflow-y-auto transition-opacity duration-700 ${
         leaving ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
       style={{
+        height: "100dvh",
         background:
           "radial-gradient(ellipse at 50% 35%, #4a1020 0%, #2a0811 55%, #160408 100%)",
       }}
@@ -324,9 +327,12 @@ export default function IntroOverlay({ title }: { title: string }) {
         @media (prefers-reduced-motion: reduce) { .intro-rise { animation: none; opacity: 1; } }
       `}</style>
 
-      <canvas ref={canvasRef} aria-hidden className="absolute inset-0" />
+      <canvas ref={canvasRef} aria-hidden className="fixed inset-0" />
 
-      <div className="pointer-events-none relative z-10 flex h-full flex-col items-center justify-end px-6 pb-[7vh] text-center">
+      <div
+        className="pointer-events-none relative z-10 flex min-h-full flex-col items-center justify-end px-5 pt-[45dvh] text-center sm:px-6 sm:pt-[48dvh]"
+        style={{ paddingBottom: "max(5dvh, calc(env(safe-area-inset-bottom) + 1.5rem))" }}
+      >
         <p
           className="intro-rise text-xs font-semibold uppercase tracking-[0.3em] text-rose-200/80"
           style={{ animationDelay: "0.4s" }}
@@ -334,7 +340,7 @@ export default function IntroOverlay({ title }: { title: string }) {
           Καλώς ήρθατε
         </p>
         <h1
-          className="intro-rise mt-3 max-w-3xl font-serif text-3xl leading-tight font-semibold text-white sm:text-5xl"
+          className="intro-rise mt-3 max-w-3xl font-serif text-2xl leading-tight min-[400px]:text-3xl font-semibold text-white sm:text-5xl"
           style={{ animationDelay: "0.7s" }}
         >
           {title}
@@ -347,14 +353,14 @@ export default function IntroOverlay({ title }: { title: string }) {
         </p>
 
         <div
-          className="intro-rise pointer-events-auto mt-8 flex flex-col items-center gap-4"
+          className="intro-rise pointer-events-auto mt-6 flex w-full max-w-sm flex-col items-center gap-4 sm:mt-8 sm:w-auto"
           style={{ animationDelay: "1.3s" }}
         >
           <button
             ref={buttonRef}
             type="button"
             onClick={enter}
-            className="rounded-full bg-white px-9 py-3.5 text-sm font-semibold tracking-wide text-[color:var(--color-accent-dark)] shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="min-h-12 w-full rounded-full bg-white px-9 py-3.5 text-sm sm:w-auto font-semibold tracking-wide text-[color:var(--color-accent-dark)] shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             Είσοδος στην ιστοσελίδα →
           </button>
