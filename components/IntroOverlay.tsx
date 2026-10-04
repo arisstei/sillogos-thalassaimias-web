@@ -4,11 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 // Αποθήκευση επιλογής επισκέπτη:
 //  - SKIP_KEY (localStorage): «να μην εμφανιστεί ξανά» -> μόνιμα
-//  - SEEN_KEY (sessionStorage): δεν ξαναεμφανίζεται στην ίδια επίσκεψη
+// Χωρίς αυτό, το intro εμφανίζεται σε κάθε φόρτωση/refresh της αρχικής.
 // Το ίδιο κλειδί διαβάζεται από το inline script του layout.tsx ώστε να μην
 // «αναβοσβήνει» το intro σε όσους το έχουν ήδη παραλείψει.
 export const INTRO_SKIP_KEY = "intro-skip";
-export const INTRO_SEEN_KEY = "intro-seen";
 
 interface Particle {
   x: number;
@@ -41,7 +40,6 @@ export default function IntroOverlay({ title }: { title: string }) {
     if (leaving) return;
     try {
       if (dontShow) localStorage.setItem(INTRO_SKIP_KEY, "1");
-      sessionStorage.setItem(INTRO_SEEN_KEY, "1");
     } catch {
       /* private mode: αγνοούμε */
     }
@@ -56,12 +54,7 @@ export default function IntroOverlay({ title }: { title: string }) {
   // Έλεγχος αποθηκευμένης επιλογής.
   useEffect(() => {
     try {
-      if (
-        localStorage.getItem(INTRO_SKIP_KEY) === "1" ||
-        sessionStorage.getItem(INTRO_SEEN_KEY) === "1"
-      ) {
-        setVisible(false);
-      }
+      if (localStorage.getItem(INTRO_SKIP_KEY) === "1") setVisible(false);
     } catch {
       /* ignore */
     }

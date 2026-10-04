@@ -3,7 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import IntroOverlay, { INTRO_SKIP_KEY, INTRO_SEEN_KEY } from "@/components/IntroOverlay";
+import IntroOverlay, { INTRO_SKIP_KEY } from "@/components/IntroOverlay";
 import { getSiteSettings, getNavPages } from "@/lib/sanity/queries";
 
 const inter = Inter({
@@ -54,7 +54,7 @@ export default async function RootLayout({
         {/* Αν ο επισκέπτης έχει ήδη παραλείψει το intro, το κρύβουμε πριν ζωγραφιστεί η σελίδα. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem('${INTRO_SKIP_KEY}')==='1'||sessionStorage.getItem('${INTRO_SEEN_KEY}')==='1')document.documentElement.setAttribute('data-intro','skip')}catch(e){}`,
+            __html: `try{if(localStorage.getItem('${INTRO_SKIP_KEY}')==='1')document.documentElement.setAttribute('data-intro','skip')}catch(e){}`,
           }}
         />
         <noscript>
